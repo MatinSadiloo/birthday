@@ -131,7 +131,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
             position: relative;
         }
 
@@ -151,7 +151,7 @@
             font-family: 'Great Vibes', cursive;
             font-size: 3.2em;
             font-weight: bold;
-            background: linear-gradient(to right, #00b4ff, #0088cc, #00b4ff);
+            background: linear-gradient(to right, #ffd700, #ff6b9d, #ffd700);
             background-size: 200% auto;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -161,7 +161,7 @@
             padding: 5px 0;
             line-height: 1.2;
             text-shadow: none;
-            filter: drop-shadow(0 0 20px rgba(0, 180, 255, 0.15));
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.15));
         }
 
         @keyframes shine {
@@ -186,64 +186,6 @@
             text-transform: lowercase;
         }
 
-        /* ========== سه قلب (آبی - قرمز - آبی) ========== */
-        .heartbeat-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-top: 5px;
-            margin-bottom: 5px;
-        }
-
-        .heartbeat {
-            font-size: 2.8em;
-            animation: heartbeatAnim 1.2s ease-in-out infinite;
-            display: inline-block;
-            transform-origin: center;
-            filter: drop-shadow(0 0 20px rgba(0, 180, 255, 0.3));
-        }
-
-        .heartbeat.blue {
-            color: #00b4ff;
-        }
-
-        .heartbeat.red {
-            color: #ff0000;
-            filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.5));
-        }
-
-        .heartbeat:nth-child(1) {
-            animation-delay: 0s;
-        }
-        .heartbeat:nth-child(2) {
-            animation-delay: 0.1s;
-        }
-        .heartbeat:nth-child(3) {
-            animation-delay: 0.2s;
-        }
-
-        @keyframes heartbeatAnim {
-            0% {
-                transform: scale(1);
-            }
-            25% {
-                transform: scale(1.15);
-            }
-            35% {
-                transform: scale(1.1);
-            }
-            45% {
-                transform: scale(1.2);
-            }
-            55% {
-                transform: scale(1.1);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
         /* ========== عنوان ========== */
         .birthday-title {
             font-size: 2.5em;
@@ -251,7 +193,7 @@
             letter-spacing: 2px;
             font-family: 'Georgia', 'Times New Roman', serif;
             text-align: center;
-            margin-top: 0px;
+            margin-top: 50px;
         }
 
         /* ========== ویس ========== */
@@ -266,7 +208,7 @@
             gap: 18px;
             border: 2px solid rgba(0, 149, 255, 0.712);
             box-shadow: 0 0 10px rgba(0, 149, 255, 0.4);
-            margin: 5px 0;
+            margin: 15px 0;
         }
 
         .wave-animation {
@@ -449,11 +391,12 @@
 
             .glass-card {
                 padding: 20px 12px;
-                gap: 12px;
+                gap: 15px;
             }
 
             .birthday-title {
                 font-size: 1.8em;
+                margin-top: 40px;
             }
 
             .nav-bar {
@@ -490,14 +433,6 @@
             .name-sub {
                 font-size: 0.65em;
                 letter-spacing: 3px;
-            }
-
-            .heartbeat-group {
-                gap: 8px;
-            }
-
-            .heartbeat {
-                font-size: 2.2em;
             }
 
             .audio-box {
@@ -551,14 +486,6 @@
                 font-size: 0.55em;
             }
 
-            .heartbeat-group {
-                gap: 6px;
-            }
-
-            .heartbeat {
-                font-size: 1.8em;
-            }
-
             .play-btn {
                 width: 35px;
                 height: 35px;
@@ -603,14 +530,7 @@
             <!-- ===== اسم هنری Zoha ===== -->
             <div class="name-box">
                 <div class="name-title">Zoha</div>
-                <div class="name-sub">From Dear Mahdi</div>
-            </div>
-
-            <!-- ===== سه قلب (آبی - قرمز - آبی) ===== -->
-            <div class="heartbeat-group">
-                <span class="heartbeat blue">💙</span>
-                <span class="heartbeat red">❤️</span>
-                <span class="heartbeat blue">💙</span>
+                <div class="name-sub">you are my everything</div>
             </div>
 
             <!-- عنوان -->
@@ -635,28 +555,24 @@
         </div>
     </div>
 
-    <!-- ===== مودال نامه ===== -->
+    <!-- ===== مودال نامه (متن دوم) ===== -->
     <div class="modal" id="letterModal">
         <div class="letter-paper">
             <span class="close-letter" id="closeLetter">&times;</span>
             <h3 style="margin-bottom: 15px;">❤️ برای ضحا عزیز ❤️</h3>
             <p style="line-height: 1.8;">
-                سلام عزیزم 🌹<br><br>
-                امروز روز خاصی‌ست، روزی که تو به دنیا اومدی و دنیا با تو زیباتر شد.<br>
-                می‌خوام بهت بگم که تو نه فقط یه اتفاق خوب، بلکه بهترین اتفاق زندگی من هستی.<br>
-                هر روز که می‌گذره، بیشتر از قبل به این باور می‌رسم که<br>
-                بودن تو توی زندگی من، بزرگترین هدیه‌ای بوده که می‌تونستم دریافت کنم.<br>
-                تولدت مبارک، عشق من. 🌹❤️
+                <!-- ===== متن دوم رو اینجا بذار ===== -->
+                متن دوم رو اینجا بنویس...
             </p>
         </div>
     </div>
 
-    <!-- ===== ناوبری ===== -->
+    <!-- ===== ناوبری (۲ نقطه) ===== -->
     <div class="nav-bar">
         <button class="nav-arrow" id="prevPage">❮</button>
         <div class="page-dots">
-            <span class="dot" data-page="2">○</span>
-            <span class="dot active" data-page="1">●</span>
+            <span class="dot active" data-page="2">●</span>
+            <span class="dot" data-page="1">○</span>
         </div>
         <button class="nav-arrow" id="nextPage">❯</button>
     </div>
@@ -669,7 +585,7 @@
             const container = document.getElementById('balloonsContainer');
             container.innerHTML = '';
 
-            const heartEmojis = ['❤️', '♥️', '❤️', '♥️'];
+            const heartEmojis = ['❤️', '💖', '💗', '♥️', '💘', '💝', '💕'];
             const count = 12;
 
             for (let i = 0; i < count; i++) {
@@ -773,7 +689,7 @@
         // ============================================================
         //  4. ناوبری
         // ============================================================
-        const currentPage = 1;
+        const currentPage = 2;
         const pages = ['First-page.html', 'page2.html'];
 
         function goToPage(pageNum) {
