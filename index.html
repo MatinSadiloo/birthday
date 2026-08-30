@@ -12,7 +12,7 @@
             padding: 0;
             box-sizing: border-box;
         }
-        
+
 
         html,
         body {
@@ -202,15 +202,14 @@
         const welcomeMessageElement = document.getElementById('welcome-message');
 
         const welcomeTexts = [
-            "الزایمر درد نیست<br>برای بعضیا درمان است..!",
-            "عشق نمی‌میرد؛ولی<br>عاشق چرا...🥀",
-            "بالاخره امروز رسید...",
+
+            "تولدت مبارک 🎂",
             "امیدوارم لذت ببری...❤️"
         ];
         let currentTextIndex = 0;
         let textIntervalId;
 
-               function showNextText() {
+        function showNextText() {
             welcomeMessageElement.style.animation = `fadeOut ${fadeDuration}ms forwards`;
 
             setTimeout(() => {
@@ -223,21 +222,21 @@
                     });
                 } else {
                     clearInterval(textIntervalId);
-                    
+
                     // محو شدن همه چیز: متن، دایره، ستاره‌ها
                     const welcomeContainer = document.querySelector('.welcome-container');
                     const welcomeElement = document.querySelector('.welcome-element');
                     const starsContainer = document.querySelector('.stars');
-                    
+
                     welcomeContainer.style.transition = 'opacity 0.8s ease-out';
                     welcomeContainer.style.opacity = '0';
-                    
+
                     welcomeElement.style.transition = 'opacity 0.8s ease-out';
                     welcomeElement.style.opacity = '0';
-                    
+
                     starsContainer.style.transition = 'opacity 0.8s ease-out';
                     starsContainer.style.opacity = '0';
-                    
+
                     // بعد از محو شدن کامل، برو به صفحه راهنما
                     setTimeout(() => {
                         window.location.href = "guide.html";
