@@ -7,6 +7,8 @@
     <title>تبریک تولد</title>
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <!-- ===== کتابخانه کانفتی ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
     <style>
         /* ===== جلوگیری از سفید شدن ===== */
         html {
@@ -296,6 +298,7 @@
             border-radius: 20px;
             min-width: 55px;
             text-align: center;
+            direction: ltr;
         }
 
         .play-btn {
@@ -603,12 +606,9 @@
 
             <!-- ===== اسم هنری Zoha ===== -->
             <div class="name-box">
-                <div class="name-title">Zoha</div>
-                <div class="name-sub">From Dear Fateme</div>
+                <div class="name-title">Reyhaneh</div>
+                <div class="name-sub">From Dear Mahdi</div>
             </div>
-
-            <!-- عنوان -->
-            <div class="birthday-title">Happy Birthday</div>
 
             <!-- ===== سه قلب (آبی - قرمز - آبی) ===== -->
             <div class="heartbeat-group">
@@ -616,6 +616,9 @@
                 <span class="heartbeat red">❤️</span>
                 <span class="heartbeat blue">💙</span>
             </div>
+
+            <!-- عنوان -->
+            <div class="birthday-title">Happy Birthday</div>
 
             <!-- ===== ویس ===== -->
             <div class="audio-box">
@@ -626,7 +629,7 @@
                     <span></span><span></span><span></span><span></span>
                     <span></span><span></span><span></span><span></span>
                 </div>
-                <div class="audio-time" id="audioTime">--:--</div>
+                <div class="audio-time" id="audioTime">00:00</div>
                 <button class="play-btn" id="playBtn">▶</button>
             </div>
 
@@ -664,14 +667,59 @@
 
     <script>
         // ============================================================
-        //  1. نمایش نرم صفحه بعد از لود (Fade In)
+        //  1. کانفتی فقط از چپ و راست
+        // ============================================================
+        function launchConfetti() {
+            // کانفتی از چپ
+            confetti({
+                particleCount: 100,
+                spread: 80,
+                origin: { x: 0, y: 0.7 },
+                colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#ffd700']
+            });
+
+            // کانفتی از راست
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    spread: 80,
+                    origin: { x: 1, y: 0.7 },
+                    colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#ffd700', '#5f27cd']
+                });
+            }, 200);
+
+            // کانفتی از چپ (مرحله دوم)
+            setTimeout(() => {
+                confetti({
+                    particleCount: 70,
+                    spread: 60,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#ff9f43', '#00d2d3', '#54a0ff', '#ff1493']
+                });
+            }, 400);
+
+            // کانفتی از راست (مرحله دوم)
+            setTimeout(() => {
+                confetti({
+                    particleCount: 70,
+                    spread: 60,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#ff6348', '#7bed9f', '#70a1ff', '#e056fd']
+                });
+            }, 600);
+            
+        }
+
+        // ============================================================
+        //  2. نمایش نرم صفحه بعد از لود (Fade In) + کانفتی
         // ============================================================
         window.addEventListener('load', function() {
             document.body.style.opacity = '1';
+            setTimeout(launchConfetti, 500);
         });
 
         // ============================================================
-        //  2. بادکنک‌های قلبی
+        //  3. بادکنک‌های قلبی
         // ============================================================
         function createBalloons() {
             const container = document.getElementById('balloonsContainer');
@@ -707,9 +755,9 @@
         }
 
         // ============================================================
-        //  3. ویس
+        //  4. ویس
         // ============================================================
-        const audioFile = 'audio/message.mp3';
+        const audioFile = 'assets/message.mp3';
         const audio = new Audio(audioFile);
         let isPlaying = false;
         let waveInterval = null;
@@ -717,17 +765,54 @@
         const playBtn = document.getElementById('playBtn');
         const waveBars = document.querySelectorAll('.wave-animation span');
         const audioTimeDisplay = document.getElementById('audioTime');
+        let isFirstPlay = true;
 
-        audio.addEventListener('loadedmetadata', () => {
-            const minutes = Math.floor(audio.duration / 60);
-            const seconds = Math.floor(audio.duration % 60);
-            audioTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        function updateTotalTime() {
+            if (!isNaN(audio.duration) && audio.duration > 0) {
+                const minutes = Math.floor(audio.duration / 60);
+                const seconds = Math.floor(audio.duration % 60);
+                audioTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
+
+        audio.addEventListener('loadedmetadata', updateTotalTime);
+        if (audio.readyState >= 1) updateTotalTime();
+
+        audio.addEventListener('error', function(e) {
+            console.error('خطا در لود فایل صوتی:', e);
+            audioTimeDisplay.textContent = 'خطا';
+        });
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                playBtn.innerHTML = '▶';
+                isPlaying = false;
+            } else {
+                if (isFirstPlay) {
+                    audio.currentTime = 0;
+                    audioTimeDisplay.textContent = '00:00';
+                    isFirstPlay = false;
+                }
+                audio.play();
+                playBtn.innerHTML = '⏸';
+                isPlaying = true;
+            }
         });
 
         audio.addEventListener('timeupdate', () => {
-            const currentMinutes = Math.floor(audio.currentTime / 60);
-            const currentSeconds = Math.floor(audio.currentTime % 60);
-            audioTimeDisplay.textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+            if (isPlaying) {
+                const currentMinutes = Math.floor(audio.currentTime / 60);
+                const currentSeconds = Math.floor(audio.currentTime % 60);
+                audioTimeDisplay.textContent = `${currentMinutes}:${currentSeconds.toString().padStart(2, '0')}`;
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            playBtn.innerHTML = '▶';
+            isPlaying = false;
+            isFirstPlay = true;
+            audioTimeDisplay.textContent = '00:00';
         });
 
         function startRandomWave() {
@@ -740,27 +825,10 @@
             }, 100);
         }
 
-        playBtn.addEventListener('click', () => {
-            if (isPlaying) {
-                audio.pause();
-                playBtn.innerHTML = '▶';
-                isPlaying = false;
-            } else {
-                audio.play();
-                playBtn.innerHTML = '⏸';
-                isPlaying = true;
-            }
-        });
-
-        audio.addEventListener('ended', () => {
-            playBtn.innerHTML = '▶';
-            isPlaying = false;
-        });
-
         startRandomWave();
 
         // ============================================================
-        //  4. نامه
+        //  5. نامه
         // ============================================================
         const modal = document.getElementById('letterModal');
         const envelopeBtn = document.getElementById('envelopeBtn');
@@ -779,7 +847,7 @@
         });
 
         // ============================================================
-        //  5. ناوبری
+        //  6. ناوبری
         // ============================================================
         const currentPage = 1;
         const pages = ['First-page.html', 'page2.html'];
@@ -809,7 +877,7 @@
         });
 
         // ============================================================
-        //  6. اجرا
+        //  7. اجرا
         // ============================================================
         document.addEventListener('DOMContentLoaded', () => {
             createBalloons();
