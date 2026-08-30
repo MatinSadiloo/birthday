@@ -580,16 +580,9 @@
         }
 
         // ============================================================
-        //  2. نمایش نرم صفحه بعد از لود (Fade In)
+        //  2. ویس با تایمر استاندارد (مقاوم در برابر رفت و برگشت)
         // ============================================================
-        window.addEventListener('load', function () {
-            document.body.style.opacity = '1';
-        });
-
-        // ============================================================
-        //  3. ویس با تایمر استاندارد
-        // ============================================================
-        const audioFile = 'assets/02-Tanha-Putak.mp3';
+        const audioFile = 'assets/message.mp3';
         const audio = new Audio(audioFile);
         let isPlaying = false;
         let waveInterval = null;
@@ -599,14 +592,24 @@
         const audioTimeDisplay = document.getElementById('audioTime');
         let isFirstPlay = true;
 
-        // === نمایش زمان کل فایل (وقتی لود شد) ===
-        audio.addEventListener('loadedmetadata', () => {
-            const minutes = Math.floor(audio.duration / 60);
-            const seconds = Math.floor(audio.duration % 60);
-            audioTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-        });
+        // === تابع نمایش زمان کل ===
+        function updateTotalTime() {
+            if (!isNaN(audio.duration) && audio.duration > 0) {
+                const minutes = Math.floor(audio.duration / 60);
+                const seconds = Math.floor(audio.duration % 60);
+                audioTimeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            }
+        }
 
-        // === تایمر از صفر موقع پلی ===
+        // === وقتی فایل لود شد ===
+        audio.addEventListener('loadedmetadata', updateTotalTime);
+
+        // === اگه فایل از قبل لود شده بود ===
+        if (audio.readyState >= 1) {
+            updateTotalTime();
+        }
+
+        // === دکمه پلی ===
         playBtn.addEventListener('click', () => {
             if (isPlaying) {
                 audio.pause();
@@ -624,7 +627,7 @@
             }
         });
 
-        // === به‌روزرسانی تایمر هنگام پخش ===
+        // === به‌روزرسانی تایمر ===
         audio.addEventListener('timeupdate', () => {
             if (isPlaying) {
                 const currentMinutes = Math.floor(audio.currentTime / 60);
@@ -633,7 +636,7 @@
             }
         });
 
-        // === وقتی ویس تموم شد ===
+        // === پایان ویس ===
         audio.addEventListener('ended', () => {
             playBtn.innerHTML = '▶';
             isPlaying = false;
@@ -651,8 +654,18 @@
                 });
             }, 100);
         }
-
         startRandomWave();
+
+        // ============================================================
+        //  3. نمایش نرم صفحه + لود مجدد فایل صوتی هنگام برگشت
+        // ============================================================
+        window.addEventListener('load', function () {
+            document.body.style.opacity = '1';
+            // لود مجدد فایل صوتی (برای مواقعی که از صفحه اول برمی‌گردی)
+            audio.load();
+            // اگر فایل قبلاً لود شده، زمان کل رو نشون بده
+            setTimeout(updateTotalTime, 300);
+        });
 
         // ============================================================
         //  4. نامه
