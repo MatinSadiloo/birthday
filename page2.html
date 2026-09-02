@@ -691,6 +691,7 @@
         <div class="page-dots">
             <span class="dot active" data-page="2">●</span>
             <span class="dot" data-page="1">○</span>
+            <span class="dot" data-page="0">○</span>
         </div>
         <button class="nav-arrow" id="nextPage">❯</button>
     </div>
@@ -839,12 +840,12 @@
             }
         }
 
-        document.getElementById('prevPage').addEventListener('click', () => {
-            if (currentPage < 2) goToPage(currentPage + 1);
+        document.getElementById('prevPage').addEventListener('click', function () {
+            if (currentPage < pages.length - 1) goToPage(currentPage + 1);
         });
 
-        document.getElementById('nextPage').addEventListener('click', () => {
-            if (currentPage > 1) goToPage(currentPage - 1);
+        document.getElementById('nextPage').addEventListener('click', function () {
+            if (currentPage > 0) goToPage(currentPage - 1);
         });
 
         document.querySelectorAll('.dot').forEach(dot => {

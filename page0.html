@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>شروع</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+    <!-- ===== کتابخانه کانفتی ===== -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
+    <style>
+        /* ===== جلوگیری از سفید شدن ===== */
+        html {
+            background-color: #000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        body {
+            font-family: 'Vazir', 'IRANSans', 'Tahoma', sans-serif;
+            background-color: #000;
+            direction: rtl;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        /* ========== کادر شیشه‌ای ========== */
+        .container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            padding: 3px;
+        }
+
+        .glass-card {
+            background: rgba(0, 0, 0, 0.85);
+            border-radius: 25px;
+            padding: 35px 20px 50px 20px;
+            width: 98%;
+            max-width: 550px;
+            height: 99%;
+            text-align: center;
+            border: 2px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.02);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        /* ========== عکس با حاشیه نئونی ========== */
+        .neon-image-wrapper {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(90deg, #ff0000, #00ff00, #0000ff, #ffd700, #ff0000);
+            background-size: 400% 100%;
+            box-shadow: 0 0 30px rgba(255, 0, 128, 0.3),
+                0 0 60px rgba(255, 140, 0, 0.2),
+                0 0 90px rgba(64, 224, 208, 0.1);
+            opacity: 0;
+            animation: neonMove 6s linear infinite,
+                       fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        @keyframes neonMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 400% 50%;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .neon-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 9px;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .neon-image-wrapper:hover img {
+            transform: scale(1.04);
+        }
+
+        /* ========== متن زیر عکس ========== */
+        .intro-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1em;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 2.2;
+            text-align: center;
+            padding: 0 15px;
+            max-width: 400px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.3s forwards;
+        }
+
+        .intro-text p {
+            margin: 0;
+        }
+
+        /* ========== ناوبری ========== */
+        .nav-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            z-index: 20;
+            background: transparent;
+            padding: 8px 20px;
+            border-radius: 50px;
+            width: fit-content;
+            margin: 0 auto;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.7s forwards;
+        }
+
+        .nav-arrow {
+            background: none;
+            border: none;
+            font-size: 1.4em;
+            color: rgba(255, 255, 255, 0.6);
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-arrow:active {
+            transform: scale(0.9);
+        }
+
+        .page-dots {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .dot {
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: rgba(255, 215, 0, 0.4);
+            line-height: 1;
+            display: inline-block;
+        }
+
+        .dot.active {
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+            transform: scale(1.2);
+        }
+
+        .dot:active {
+            transform: scale(0.9);
+        }
+
+        button {
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        /* ========== ریسپانسیو ========== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 12px;
+            }
+
+            .glass-card {
+                padding: 20px 12px;
+                gap: 15px;
+            }
+
+            .neon-image-wrapper {
+                width: 160px;
+                height: 160px;
+            }
+
+            .intro-text {
+                font-size: 0.9em;
+                line-height: 2;
+            }
+
+            .nav-bar {
+                bottom: 25px;
+                gap: 10px;
+                padding: 5px 12px;
+            }
+
+            .nav-arrow {
+                font-size: 1.2em;
+            }
+
+            .dot {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .neon-image-wrapper {
+                width: 250px;
+                height: 250px;
+            }
+
+            .intro-text {
+                font-size: 0.85em;
+                line-height: 1.9;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== صفحه صفر ===== -->
+    <div class="container">
+        <div class="glass-card">
+
+            <!-- ===== عکس مربعی با حاشیه نئونی ===== -->
+            <div class="neon-image-wrapper">
+                <img src="assets/photo_2026-09-03_01-38-54.jpg" alt="intro" id="introImage">
+            </div>
+
+            <!-- ===== متن زیر عکس ===== -->
+            <div class="intro-text" id="introText">
+                <p>ببین تولد کیه 🥺🎂
+                    ریحانِ عزیزم متاسفانه دوریم و نمیتونیم تو این روز خاص کنارت باشیم ولی دلیل نمیشه که تلاشمونو نکنیم
+                    تا خوش‌حالت کنیم کهه😌
+                    امیدوارم که این هدیه کوچیک یه لبخند رو لبای قشنگت بیاره و بدونی که چقدر برامون عزیزی و دوستت
+                    داریم🫂💙</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ===== ناوبری ===== -->
+    <div class="nav-bar">
+        <button class="nav-arrow" id="prevPage">❮</button>
+        <div class="page-dots">
+            <span class="dot" data-page="2">○</span>
+            <span class="dot" data-page="1">○</span>
+            <span class="dot active" data-page="0">●</span>
+        </div>
+        <button class="nav-arrow" id="nextPage">❯</button>
+    </div>
+
+    <script>
+        // ============================================================
+        //  1. کانفتی (کاغذ رنگی) موقع ورود
+        // ============================================================
+        function launchConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 80,
+                origin: { x: 0, y: 0.7 },
+                colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff8800', '#ffd700']
+            });
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    spread: 80,
+                    origin: { x: 1, y: 0.7 },
+                    colors: ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#ffd700', '#5f27cd']
+                });
+            }, 200);
+            setTimeout(() => {
+                confetti({
+                    particleCount: 70,
+                    spread: 60,
+                    origin: { x: 0, y: 0.6 },
+                    colors: ['#ff9f43', '#00d2d3', '#54a0ff', '#ff1493']
+                });
+            }, 400);
+            setTimeout(() => {
+                confetti({
+                    particleCount: 70,
+                    spread: 60,
+                    origin: { x: 1, y: 0.6 },
+                    colors: ['#ff6348', '#7bed9f', '#70a1ff', '#e056fd']
+                });
+            }, 600);
+        }
+
+        // ============================================================
+        //  2. نمایش نرم صفحه بعد از لود + کانفتی
+        // ============================================================
+        window.addEventListener('load', function () {
+            document.body.style.opacity = '1';
+            setTimeout(launchConfetti, 500);
+        });
+
+        // ============================================================
+        //  3. ناوبری (3 صفحه: 0، 1، 2)
+        // ============================================================
+        const currentPage = 0;
+        const pages = ['page0.html', 'First-page.html', 'page2.html'];
+
+        function goToPage(pageNum) {
+            if (pageNum >= 0 && pageNum < pages.length) {
+                document.body.style.transition = 'opacity 0.4s';
+                document.body.style.opacity = '0';
+                setTimeout(function () {
+                    window.location.href = pages[pageNum];
+                }, 400);
+            }
+        }
+
+        document.getElementById('prevPage').addEventListener('click', function () {
+            if (currentPage < pages.length - 1) goToPage(currentPage + 1);
+        });
+
+        document.getElementById('nextPage').addEventListener('click', function () {
+            if (currentPage > 0) goToPage(currentPage - 1);
+        });
+
+        document.querySelectorAll('.dot').forEach(function (dot) {
+            dot.addEventListener('click', function () {
+                const pageNum = parseInt(dot.dataset.page);
+                if (pageNum !== currentPage) goToPage(pageNum);
+            });
+        });
+    </script>
+
+</body>
+
+</html>
