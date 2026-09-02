@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>تبریک تولد</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&display=swap"
+        rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
     <!-- ===== کتابخانه کانفتی ===== -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1"></script>
@@ -72,6 +73,7 @@
             0% {
                 transform: rotate(-5deg) scale(1);
             }
+
             100% {
                 transform: rotate(5deg) scale(1.05);
             }
@@ -93,12 +95,15 @@
                 opacity: 0;
                 transform: translateX(0);
             }
+
             15% {
                 opacity: 1;
             }
+
             85% {
                 opacity: 1;
             }
+
             100% {
                 bottom: 110%;
                 opacity: 0;
@@ -171,9 +176,11 @@
             0% {
                 background-position: 0% center;
             }
+
             50% {
                 background-position: 200% center;
             }
+
             100% {
                 background-position: 0% center;
             }
@@ -187,16 +194,6 @@
             margin-top: 2px;
             font-weight: 300;
             text-transform: lowercase;
-        }
-
-        /* ========== عنوان ========== */
-        .birthday-title {
-            font-size: 2.5em;
-            color: #ffd700;
-            letter-spacing: 2px;
-            font-family: 'Dancing Script', cursive;
-            text-align: center;
-            margin-top: 0px;
         }
 
         /* ========== سه قلب (آبی - قرمز - آبی) ========== */
@@ -229,9 +226,11 @@
         .heartbeat:nth-child(1) {
             animation-delay: 0s;
         }
+
         .heartbeat:nth-child(2) {
             animation-delay: 0.1s;
         }
+
         .heartbeat:nth-child(3) {
             animation-delay: 0.2s;
         }
@@ -240,21 +239,36 @@
             0% {
                 transform: scale(1);
             }
+
             25% {
                 transform: scale(1.15);
             }
+
             35% {
                 transform: scale(1.1);
             }
+
             45% {
                 transform: scale(1.2);
             }
+
             55% {
                 transform: scale(1.1);
             }
+
             100% {
                 transform: scale(1);
             }
+        }
+
+        /* ========== عنوان ========== */
+        .birthday-title {
+            font-size: 2.5em;
+            color: #ffd700;
+            letter-spacing: 2px;
+            font-family: 'Dancing Script', cursive;
+            text-align: center;
+            margin-top: 0px;
         }
 
         /* ========== ویس ========== */
@@ -610,15 +624,15 @@
                 <div class="name-sub">From Dear Fatemeh</div>
             </div>
 
+            <!-- ===== عنوان ===== -->
+            <div class="birthday-title">Happy Birthday</div>
+
             <!-- ===== سه قلب (آبی - قرمز - آبی) ===== -->
             <div class="heartbeat-group">
                 <span class="heartbeat blue">💙</span>
                 <span class="heartbeat red">❤️</span>
                 <span class="heartbeat blue">💙</span>
             </div>
-
-            <!-- عنوان -->
-            <div class="birthday-title">Happy Birthday</div>
 
             <!-- ===== ویس ===== -->
             <div class="audio-box">
@@ -643,9 +657,19 @@
     <div class="modal" id="letterModal">
         <div class="letter-paper">
             <span class="close-letter" id="closeLetter">&times;</span>
-            <h3 style="margin-bottom: 15px;">❤️برای ریحانه عزیز❤️</h3>
+            <h3 style="margin-bottom: 15px;">❤️ برای ریحانه عزیز ❤️</h3>
             <p style="line-height: 1.8;">
-                سلام🌹
+                برای یه دوستِ دوستداشتنی... 🫂❤️
+
+                بعضی آدما یجوری وارد زندگی آدم میشن که شاید اولش ندونی قراره چقدر خاص بشن، اما کم‌کم حضورشون تبدیل میشه
+                به یه قسمت قشنگ :) 🦆🫠
+                توهم دقیقا آدمی هستی که میشه باهاش ساعت‌ها حرف زد و خندید، از چیزای بی‌اهمیت گفت، خاطره ساخت حتی
+                غیبت😔😂
+                چیزی که همه اینارو قشنگ می‌کنه اینه که تو توشون بودی‌و باحضورت اون لحظه‌هارو پر از معنا کردی🥹😭
+                تولدت فقط یه تبریک یا یه روز برای بیشتر شدن سنت نیست، یه بهونست برای اینکه بهت بگم چقدر بودنت قشنگه🥲🦋
+                امیدوارم توی سال جدید زندگیت، کلی اتفاق خوب منتظرت باشه، آرزوهایی که بهشون می‌رسی، آدمایی که دوسشون
+                داری...
+                تولدت مبارک رفیقِ قشنگ‌من🥳🎈
             </p>
         </div>
     </div>
@@ -702,13 +726,13 @@
                     colors: ['#ff6348', '#7bed9f', '#70a1ff', '#e056fd']
                 });
             }, 600);
-            
+
         }
 
         // ============================================================
         //  2. نمایش نرم صفحه بعد از لود (Fade In) + کانفتی
         // ============================================================
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function () {
             document.body.style.opacity = '1';
             setTimeout(launchConfetti, 500);
         });
@@ -752,7 +776,7 @@
         // ============================================================
         //  4. ویس
         // ============================================================
-        const audioFile = 'assets/message.mp3';
+        const audioFile = 'assets/jtlHKGmrDfSdHdfRBa8CoI3V9pzfuln8.mp3';
         const audio = new Audio(audioFile);
         let isPlaying = false;
         let waveInterval = null;
@@ -773,7 +797,7 @@
         audio.addEventListener('loadedmetadata', updateTotalTime);
         if (audio.readyState >= 1) updateTotalTime();
 
-        audio.addEventListener('error', function(e) {
+        audio.addEventListener('error', function (e) {
             console.error('خطا در لود فایل صوتی:', e);
             audioTimeDisplay.textContent = 'خطا';
         });
